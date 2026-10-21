@@ -87,4 +87,26 @@ impl ColorLightHandler {
             .send(self)
             .await
     }
+
+    /// Returns the *on/off gradually* settings as [`serde_json::Value`]: `on_state` and
+    /// `off_state` (*Fade On/Off* in the Tapo app) and, on firmware that has it,
+    /// `change_state` (*Smooth Transition*: fading between states while the device is on).
+    pub async fn get_on_off_gradually_info(&self) -> Result<serde_json::Value, Error> {
+        self.client.read().await.get_on_off_gradually_info().await
+    }
+
+    /// Turns *Smooth Transition* on or off: whether the device fades between states while it is on.
+    /// Only firmware that reports `change_state` in
+    /// [`ColorLightHandler::get_on_off_gradually_info`] supports it.
+    ///
+    /// # Arguments
+    ///
+    /// * `enabled` - whether to fade between states
+    pub async fn set_smooth_transition(&self, enabled: bool) -> Result<(), Error> {
+        self.client
+            .read()
+            .await
+            .set_on_off_gradually_info(serde_json::json!({ "change_state": { "enable": enabled } }))
+            .await
+    }
 }

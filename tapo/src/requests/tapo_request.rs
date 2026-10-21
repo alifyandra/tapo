@@ -27,6 +27,8 @@ pub(crate) enum TapoRequest {
     #[serde(rename = "securePassthrough")]
     SecurePassthrough(TapoParams<SecurePassthroughParams>),
     SetDeviceInfo(Box<TapoParams<serde_json::Value>>),
+    GetOnOffGraduallyInfo(TapoParams<EmptyParams>),
+    SetOnOffGraduallyInfo(Box<TapoParams<serde_json::Value>>),
     SetLightingEffect(Box<TapoParams<LightingEffect>>),
     ApplySegmentEffectRule(Box<TapoParams<SegmentEffect>>),
     DeviceReset(TapoParams<EmptyParams>),

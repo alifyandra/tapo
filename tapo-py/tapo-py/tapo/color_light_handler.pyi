@@ -72,3 +72,21 @@ class ColorLightHandler(DeviceHandlerExt, OnOffExt, DeviceManagementExt, DebugEx
         Args:
             color_temperature (int): between 2500 and 6500
         """
+
+    async def get_on_off_gradually_info(self) -> dict:
+        """Returns the *on/off gradually* settings as `dict`: `on_state` and `off_state`
+        (*Fade On/Off* in the Tapo app) and, on firmware that has it, `change_state`
+        (*Smooth Transition*: fading between states while the device is on).
+
+        Returns:
+            dict: On/off gradually settings of the device.
+        """
+
+    async def set_smooth_transition(self, enabled: bool) -> None:
+        """Turns *Smooth Transition* on or off: whether the device fades between states
+        while it is on. Only firmware that reports `change_state` in
+        `ColorLightHandler.get_on_off_gradually_info` supports it.
+
+        Args:
+            enabled (bool): whether to fade between states
+        """

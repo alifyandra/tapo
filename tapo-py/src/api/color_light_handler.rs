@@ -1,6 +1,7 @@
 use std::ops::Deref;
 
 use pyo3::prelude::*;
+use pyo3::types::PyDict;
 use tapo::ColorLightHandler;
 use tapo::requests::Color;
 use tapo::responses::{DeviceInfoColorLightResult, DeviceUsageEnergyMonitoringResult};
@@ -56,6 +57,24 @@ impl PyColorLightHandler {
             handler.read().await.deref(),
             ColorLightHandler::set_color_temperature,
             color_temperature
+        )
+    }
+
+    pub async fn get_on_off_gradually_info(&self) -> PyResult<Py<PyDict>> {
+        let handler = self.inner.clone();
+        let result = call_handler_method!(
+            handler.read().await.deref(),
+            ColorLightHandler::get_on_off_gradually_info
+        )?;
+        Python::attach(|py| tapo::python::serde_object_to_py_dict(py, &result))
+    }
+
+    pub async fn set_smooth_transition(&self, enabled: bool) -> PyResult<()> {
+        let handler = self.inner.clone();
+        call_handler_method!(
+            handler.read().await.deref(),
+            ColorLightHandler::set_smooth_transition,
+            enabled
         )
     }
 }

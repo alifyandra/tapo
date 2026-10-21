@@ -8,6 +8,7 @@ file. This change log follows the conventions of
 
 ### Added
 
+- `ColorLightHandler`: added `get_on_off_gradually_info`, which returns the *Fade On/Off* and *Smooth Transition* settings as `serde_json::Value`, and `set_smooth_transition`, which turns *Smooth Transition* (fading between states while the device is on) on or off.
 - `ApiClient`: added the `p125` builder for the P125 and P125M plugs. Both are served by `PlugHandler`, like the P100 and P105, and are recognised by `ApiClient::discover_devices`.
 - `ApiClient`: added the `tp10` builder for the TP10 plug. It is served by `PlugHandler`, like the P100 and P105, and is recognised by `ApiClient::discover_devices`. (thanks to @rw-r-r-0644)
 - `ApiClient`: added the `h110` builder for the H110 hub. It returns a `HubIrHandler`, which supports everything `HubHandler` does and adds `ir_remote` and `ir_remote_unchecked` for the IR remotes paired with the hub. H110 hubs are recognised by `ApiClient::discover_devices`. (thanks to @skoky)
@@ -52,6 +53,7 @@ file. This change log follows the conventions of
 
 ### Added
 
+- `ColorLightHandler`: added `get_on_off_gradually_info`, which returns the *Fade On/Off* and *Smooth Transition* settings as `dict`, and `set_smooth_transition`, which turns *Smooth Transition* (fading between states while the device is on) on or off.
 - `ApiClient`: added the `p125` method for the P125 and P125M plugs. Both are served by `PlugHandler`, like the P100 and P105, and are recognised by `ApiClient.discover_devices`.
 - `ApiClient`: added the `tp10` method for the TP10 plug. It is served by `PlugHandler`, like the P100 and P105, and is recognised by `ApiClient.discover_devices`. (thanks to @rw-r-r-0644)
 - `ApiClient`: added the `h110` method for the H110 hub. It returns a `HubIrHandler`, which supports everything `HubHandler` does and adds `ir_remote` and `ir_remote_unchecked` for the IR remotes paired with the hub. H110 hubs are recognised by `ApiClient.discover_devices`. (thanks to @skoky)

@@ -1422,6 +1422,30 @@ impl ApiClient {
         }
     }
 
+    pub(crate) async fn get_on_off_gradually_info(&self) -> Result<serde_json::Value, Error> {
+        debug!("Get On/Off gradually info...");
+        let request = TapoRequest::GetOnOffGraduallyInfo(TapoParams::new(EmptyParams));
+
+        self.protocol()?
+            .execute_request(request)
+            .await?
+            .ok_or_else(|| Error::Tapo(TapoResponseError::EmptyResult))
+    }
+
+    pub(crate) async fn set_on_off_gradually_info(
+        &self,
+        params: serde_json::Value,
+    ) -> Result<(), Error> {
+        debug!("On/Off gradually info will change to: {params:?}");
+        let request = TapoRequest::SetOnOffGraduallyInfo(Box::new(TapoParams::new(params)));
+
+        self.protocol()?
+            .execute_request::<serde_json::Value>(request)
+            .await?;
+
+        Ok(())
+    }
+
     pub(crate) async fn get_device_info<R>(&self) -> Result<R, Error>
     where
         R: fmt::Debug + DeserializeOwned + TapoResponseExt + DecodableResultExt,
